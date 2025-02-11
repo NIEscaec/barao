@@ -34,8 +34,12 @@ comerciobr_tabela_paises <- function(pais, periodo) {
       dplyr::arrange(dplyr::desc(value), .by_group = T) %>%
       dplyr::arrange(dplyr::desc(co_ano)) %>%
       dplyr::relocate(co_ano, path, no_pais, value, .data$pct_var, .data$pct_prop) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("pct_") , scales::label_percent(decimal.mark = ",", accuracy = .01)))
+      # dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("val"),
+                                  scales::label_number(scale_cut = scales::cut_si("")))) %>%
+      dplyr::mutate(dplyr::across(where(is.character),
+                                ~ gsub(" G", "B", gsub(" M", "M", gsub(" k", "K", .x))))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("pct_") , scales::label_percent(decimal.mark = ",", accuracy = .001)))
 
   df %>%
     kableExtra::kbl(booktabs = T, col.names = c("Ano", "Dire\u00e7\u00e3o", "Pa\u00eds", "Valor", "Varia\u00e7\u00e3o", "Propor\u00e7\u00e3o")) %>%

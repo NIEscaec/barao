@@ -1,7 +1,7 @@
 ---
 title: "Brasil-`r pais`, Dados Comerciais"
 author: "Núcleo de Inteligência - SAEF"
-date: "Últimos dados disponíveis: `r barao2::meses(barao2::comerciobr_get_ultimomes())` de `r barao2::meses(barao2::comerciobr_get_ulimoano())`"
+date: "Últimos dados disponíveis: `r barao2::meses(barao2::comerciobr_get_ultimomes())` de `r as.character(barao2::comerciobr_get_ulimoano())`"
 output:
   pdf_document:
     latex_engine: lualatex
@@ -38,7 +38,7 @@ tables: yes
 graphics: yes
 ---
 
-- Exceto disposição em contrário, todos os dados estão em USD Bilhões
+-   Exceto disposição em contrário, todos os dados estão em USD Bilhões
 
 ```{r setup, include = F}
 library(barao2)
@@ -58,7 +58,9 @@ barao2::comerciobr_grafico_corrente(pais, periodo)
 ```
 
 ```{r, results='asis'}
+
 purrr::walk(comerciobr_tabela_corrente(pais, periodo), print)
+
 ```
 
 \newpage
@@ -169,9 +171,9 @@ O índice Herfindahl-Hirschman, originalmente utilizado para a caracterização 
 
 O índice é aqui calculado com base na desagregação das pautas até o nível de dois dígitos (SH2). Quanto maior o valor do índice, mais concentrada é a pauta. O índice varia entre os valores de 0 e 1. Nas situações extremas teríamos:
 
-* 1 = Somente um produto compõe a pauta
+-   1 = Somente um produto compõe a pauta
 
-* 0 = Infinitos produtos compõem a pauta
+-   0 = Infinitos produtos compõem a pauta
 
 ### Comércio intraindústria
 
@@ -179,11 +181,9 @@ O índice Grubel-Lloyd foi originalmente concebido para avaliar o comércio intr
 
 O índice é aqui calculado com base na desagregação até o nível de dois dígitos (SH2) e somente para produtos caracterizados como industrializados em um corte simplificado (SH2 entre 16 e 67 e acima de 72). Quanto maior o valor do índice, maior é o comércio intraindústria. O índice varia entre os valores de 0 e 1. Nas situações extremas teríamos:
 
-* 1 = O comércio intraindústria é total (haveria reexportação ou reimportação de todos os produtos)
+-   1 = O comércio intraindústria é total (haveria reexportação ou reimportação de todos os produtos)
 
-* 0 = Não há comércio intraindústria
-
-
+-   0 = Não há comércio intraindústria
 
 \newpage
 
@@ -298,6 +298,7 @@ barao2::comerciobr_tabela_fatores(pais, periodo, "cuci")
 ```{r, fig.height=5}
 barao2::comerciobr_grafico_concentracao_intraindustria(periodo, pais)
 ```
+
 ```{r, results='asis'}
 purrr::walk(comerciobr_tabelas_comercio(pais, periodo), print)
 ```
@@ -310,9 +311,9 @@ O índice Herfindahl-Hirschman, originalmente utilizado para a caracterização 
 
 O índice é aqui calculado com base na desagregação das pautas até o nível de dois dígitos (SH2). Quanto maior o valor do índice, mais concentrada é a pauta. O índice varia entre os valores de 0 e 1. Nas situações extremas teríamos:
 
-* 1 = Somente um produto compõe a pauta
+-   1 = Somente um produto compõe a pauta
 
-* 0 = Infinitos produtos compõem a pauta
+-   0 = Infinitos produtos compõem a pauta
 
 ### Comércio intraindústria
 
@@ -320,6 +321,6 @@ O índice Grubel-Lloyd foi originalmente concebido para avaliar o comércio intr
 
 O índice é aqui calculado com base na desagregação até o nível de dois dígitos (SH2) e somente para produtos caracterizados como industrializados em um corte simplificado (SH2 entre 16 e 67 e acima de 72). Quanto maior o valor do índice, maior é o comércio intraindústria. O índice varia entre os valores de 0 e 1. Nas situações extremas teríamos:
 
-* 1 = O comércio intraindústria é total (haveria reexportação ou reimportação de todos os produtos)
+-   1 = O comércio intraindústria é total (haveria reexportação ou reimportação de todos os produtos)
 
-* 0 = Não há comércio intraindústria
+-   0 = Não há comércio intraindústria

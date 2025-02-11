@@ -1,5 +1,5 @@
 ---
-title: "Brasil-Europa, Dados Comerciais"
+title: "Brasil-APEC, Dados Comerciais"
 author: "Núcleo de Inteligência - SAEF"
 date: "Últimos dados disponíveis: `r barao2::meses(barao2::comerciobr_get_ultimomes())` de `r barao2::comerciobr_get_ulimoano()`"
 output:
@@ -31,7 +31,7 @@ header-includes:
 - \newcommand{\elandscape}{\end{landscape}}
 - \pagestyle{fancy}
 - \fancyhead{}
-- \fancyhead[CO,CE]{Brasil-Europa, Dados Comerciais}
+- \fancyhead[CO,CE]{Brasil-APEC, Dados Comerciais}
 - \fancyfoot[CO,CE]{}
 - \fancyfoot[LE,RO]{\thepage}
 tables: yes
@@ -44,7 +44,7 @@ graphics: yes
 library(barao2)
 library(kableExtra)
 periodo <- "anual"
-pais <- c("Albania", "Andorra", "Armênia","Áustria", "Azerbaijão", "Belarus", "Bósnia-Herzegovina","Bélgica","Bulgária" , "Chipre", "Dinamarca", "Alemanha", "Estônia", "Finlândia", "França", "Grécia", "Hungria", "Irlanda", "Itália", "Croácia", "Letônia", "Lituânia", "Luxemburgo", "Malta", "Países Baixos (Holanda)", "Áustria", "Polônia", "Portugal", "Romênia", "Eslovênia", "Eslováquia", "Espanha", "Tcheca, República", "Suécia", "Ucrânia", "Sérvia", "Macedônia", "Islândia", "Jersey", "Ilha de Man",  "Gibraltar",  "Faroe, Ilhas", " Liechtenstein",  "San Marino", "Vaticano", "Aland, Ilhas")
+pais <- c("Austrália", "Brunei", "Canadá", "Chile", "China", "Hong Kong", "Indonésia", "Japão", "Coreia do Sul",  "Malásia", "México", "Nova Zelândia", "Papua Nova Guiné", "Peru", "Filipinas", "Rússia", "Taiwan (Formosa)", "Singapura", "Tailândia", "Estados Unidos", "Vietnã")
 knitr::opts_chunk$set(echo = F, message = F, warning = F, error = T)
 ```
 
@@ -85,9 +85,9 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, error = T)
                                 levels = c("Exportacoes", "Importacoes",
                                            "Corrente", "Saldo")),
                         scales = "free_x") +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     ggplot2::scale_x_discrete(breaks = scales::breaks_pretty()) +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, Fluxo de Com\u00e9rcio {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, Fluxo de Com\u00e9rcio {frase}"),
                   x = NULL, y = NULL, caption = "Fonte: Minist\u00e9rio da Economia") +
     ggthemes::scale_fill_tableau() +
     ggplot2::theme_minimal()
@@ -140,9 +140,9 @@ purrr::walk(comerciobr_tabela_corrente(pais, periodo), print)
     ggplot2::coord_flip() +
     ggplot2::theme_minimal() +
     ggthemes::scale_fill_tableau() +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     tidytext::scale_x_reordered() +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, pauta comercial, {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, pauta comercial, {frase}"),
                   x = NULL, y = NULL, caption = "Fonte: Minist\u00e9rio da Economia")
 
 ```
@@ -227,7 +227,7 @@ if (length(pais) > 1) {
                      type = "index",
                      align.labels=list(c("center", "center"), c("left", "top")),
                      palette = ggthemes::tableau_color_pal('Tableau 10')(10),
-                     title = glue::glue("Brasil-Europa, Propor\u00e7\u00e3o de Exporta\u00e7\u00f5es e Importa\u00e7\u00f5es {frase}"))
+                     title = glue::glue("Brasil-APEC, Propor\u00e7\u00e3o de Exporta\u00e7\u00f5es e Importa\u00e7\u00f5es {frase}"))
 ```
 
 \blandscape
@@ -273,10 +273,10 @@ if (length(pais) > 1) {
                         nrow = 2) +
     ggthemes::scale_color_pander() +
     ggplot2::theme_minimal() +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, evolu\u00e7\u00e3o do com\u00e9rcio, {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, evolu\u00e7\u00e3o do com\u00e9rcio, {frase}"),
                   caption = "Fonte: Minist\u00e9rio da Economia",
                   x = NULL, y = NULL) +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     ggplot2::scale_x_continuous(breaks = scales::breaks_pretty())
 
 ```
@@ -318,7 +318,7 @@ if (periodo == "mensal") {
     dplyr::filter(co_ano >= max(co_ano)-4) %>%
     dplyr::arrange(dplyr::desc(co_ano)) %>%
     dplyr::relocate(co_ano, path, no_sh4_por, co_sh4, value, .data$pct_var, .data$pct_prop) %>%
-    dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number_si(accuracy = 0.01))) %>%
+    dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
     dplyr::mutate(dplyr::across(dplyr::starts_with("pct_") , scales::label_percent(decimal.mark = ",", accuracy = .1))) %>%
     dplyr::mutate(no_sh4_por = dplyr::case_when(stringr::str_length(no_sh4_por) > 50 ~
                                            paste0(stringr::str_sub(no_sh4_por, 1, 50), ".."),
@@ -437,9 +437,9 @@ periodo <- "mensal"
                                 levels = c("Exportacoes", "Importacoes",
                                            "Corrente", "Saldo")),
                         scales = "free_x") +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     ggplot2::scale_x_discrete(breaks = scales::breaks_pretty()) +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, Fluxo de Com\u00e9rcio {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, Fluxo de Com\u00e9rcio {frase}"),
                   x = NULL, y = NULL, caption = "Fonte: Minist\u00e9rio da Economia") +
     ggthemes::scale_fill_tableau() +
     ggplot2::theme_minimal()
@@ -490,9 +490,9 @@ purrr::walk(comerciobr_tabela_corrente(pais, periodo), print)
     ggplot2::coord_flip() +
     ggplot2::theme_minimal() +
     ggthemes::scale_fill_tableau() +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     tidytext::scale_x_reordered() +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, pauta comercial, {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, pauta comercial, {frase}"),
                   x = NULL, y = NULL, caption = "Fonte: Minist\u00e9rio da Economia")
 ```
 
@@ -576,7 +576,7 @@ purrr::walk(comerciobr_tabela_corrente(pais, periodo), print)
                      type = "index",
                      align.labels=list(c("center", "center"), c("left", "top")),
                      palette = ggthemes::tableau_color_pal('Tableau 10')(10),
-                     title = glue::glue("Brasil-Europa, Propor {frase}"))
+                     title = glue::glue("Brasil-APEC, Propor {frase}"))
 ```
 
 \blandscape
@@ -622,10 +622,10 @@ if (length(pais) > 1) {
                         nrow = 2) +
     ggthemes::scale_color_pander() +
     ggplot2::theme_minimal() +
-    ggplot2::labs(title = glue::glue("Brasil-Europa, evolu\u00e7\u00e3o do com\u00e9rcio, {frase}"),
+    ggplot2::labs(title = glue::glue("Brasil-APEC, evolu\u00e7\u00e3o do com\u00e9rcio, {frase}"),
                   caption = "Fonte: Minist\u00e9rio da Economia",
                   x = NULL, y = NULL) +
-    ggplot2::scale_y_continuous(labels = scales::label_number_si()) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     ggplot2::scale_x_continuous(breaks = scales::breaks_pretty())
 
 ```
@@ -667,7 +667,7 @@ if (periodo == "mensal") {
     dplyr::filter(co_ano >= max(co_ano)-4) %>%
     dplyr::arrange(dplyr::desc(co_ano)) %>%
     dplyr::relocate(co_ano, path, no_sh4_por, co_sh4, value, .data$pct_var, .data$pct_prop) %>%
-    dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number_si(accuracy = 0.01))) %>%
+    dplyr::mutate(dplyr::across(dplyr::starts_with("val"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
     dplyr::mutate(dplyr::across(dplyr::starts_with("pct_") , scales::label_percent(decimal.mark = ",", accuracy = .1))) %>%
     dplyr::mutate(no_sh4_por = dplyr::case_when(stringr::str_length(no_sh4_por) > 50 ~
                                            paste0(stringr::str_sub(no_sh4_por, 1, 50), ".."),

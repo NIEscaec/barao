@@ -1,7 +1,7 @@
 ---
 title: "Brasil-, Dados Comerciais"
 author: "Núcleo de Inteligência - SCAEC"
-date: "Últimos dados disponíveis: `r barao2::meses(barao2::comerciobr_get_ultimomes())` de `2022`"
+date: "Últimos dados disponíveis: `r barao2::meses(barao2::comerciobr_get_ultimomes())` de 2024"
 output:
   pdf_document:
     latex_engine: lualatex
@@ -31,7 +31,7 @@ header-includes:
 - \newcommand{\elandscape}{\end{landscape}}
 - \pagestyle{fancy}
 - \fancyhead{}
-- \fancyhead[CO,CE]{Brasil-, Dados Comerciais}
+- \fancyhead[CO,CE]{Brasil-`r pais`, Dados Comerciais}
 - \fancyfoot[CO,CE]{}
 - \fancyfoot[LE,RO]{\thepage}
 tables: yes

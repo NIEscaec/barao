@@ -26,8 +26,13 @@ comerciobr_tabela_fatores <- function(pais, periodo, fator) {
       dplyr::arrange(dplyr::desc(value), .by_group = T) %>%
       dplyr::mutate(total = sum(value),
                     prop = value/.data$total) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("value"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("value"),
+                                  scales::label_number(scale_cut = scales::cut_si("")))) %>%
       dplyr::mutate(dplyr::across(dplyr::starts_with("prop"), scales::label_percent(accuracy = 0.1, decimal.mark = ","))) %>%
+
+      ## reduz espaço e muda G para B de bilhao
+      dplyr::mutate(dplyr::across(where(is.character),
+                                  ~ gsub(" G", "B", gsub(" M", "M", gsub(" k", "K", .x))))) %>%
       dplyr::ungroup() %>%
       dplyr::select(-c(.data$total)) %>%
       dplyr::relocate(path, .before = no_cuci_sec) %>%
@@ -49,8 +54,13 @@ comerciobr_tabela_fatores <- function(pais, periodo, fator) {
       dplyr::arrange(dplyr::desc(value), .by_group = T) %>%
       dplyr::mutate(total = sum(value),
                     prop = value/.data$total) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("value"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("value"),
+                                  scales::label_number(scale_cut = scales::cut_si("")))) %>%
       dplyr::mutate(dplyr::across(dplyr::starts_with("prop"), scales::label_percent(accuracy = 0.1, decimal.mark = ","))) %>%
+      ## reduz espaço e muda G para B de bilhao
+      dplyr::mutate(dplyr::across(where(is.character),
+                                  ~ gsub(" G", "B", gsub(" M", "M", gsub(" k", "K", .x))))) %>%
+
       dplyr::ungroup() %>%
       dplyr::select(-c(.data$total)) %>%
       dplyr::relocate(path, .before = no_isic_secao) %>%
@@ -74,8 +84,13 @@ comerciobr_tabela_fatores <- function(pais, periodo, fator) {
       dplyr::arrange(dplyr::desc(value), .by_group = T) %>%
       dplyr::mutate(total = sum(value),
                     prop = value/.data$total) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("value"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("value"),
+                                  scales::label_number(scale_cut = scales::cut_si("")))) %>%
       dplyr::mutate(dplyr::across(dplyr::starts_with("prop"), scales::label_percent(accuracy = 0.1, decimal.mark = ","))) %>%
+      ## reduz espaço e muda G para B de bilhao
+      dplyr::mutate(dplyr::across(where(is.character),
+                                  ~ gsub(" G", "B", gsub(" M", "M", gsub(" k", "K", .x))))) %>%
+
       dplyr::ungroup() %>%
       dplyr::select(-c(.data$total)) %>%
       dplyr::relocate(path, .before = no_cgce_n1) %>%
@@ -99,8 +114,12 @@ comerciobr_tabela_fatores <- function(pais, periodo, fator) {
       dplyr::arrange(dplyr::desc(value), .by_group = T) %>%
       dplyr::mutate(total = sum(value),
                     prop = value/.data$total) %>%
-      dplyr::mutate(dplyr::across(dplyr::starts_with("value"), scales::label_number(scale_cut = scales::cut_short_scale()))) %>%
+      dplyr::mutate(dplyr::across(dplyr::starts_with("value"),
+                                  scales::label_number(scale_cut = scales::cut_si("")))) %>%
       dplyr::mutate(dplyr::across(dplyr::starts_with("prop"), scales::label_percent(accuracy = 0.1, decimal.mark = ","))) %>%
+      ## reduz espaço e muda G para B de bilhao
+      dplyr::mutate(dplyr::across(where(is.character),
+                                  ~ gsub(" G", "B", gsub(" M", "M", gsub(" k", "K", .x))))) %>%
       dplyr::ungroup() %>%
       dplyr::select(-c(.data$total)) %>%
       dplyr::relocate(path, .before = no_fat_agreg) %>%
